@@ -17,6 +17,9 @@ module.exports = function(app) {
         mysqlDs.automigrate(null, function (err) {
             if (err) console.log(err);
             console.log('> Models migrated to tables');
+            
+            
+            
         });
     }
 }
