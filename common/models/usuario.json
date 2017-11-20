@@ -29,7 +29,7 @@
     "ListaFamiliar": {
       "type": "belongsTo",
       "model": "ListaFamiliar",
-      "foreignKey": ""
+      "foreignKey": "listaFamiliarId"
     }
   },
   "acls": [],

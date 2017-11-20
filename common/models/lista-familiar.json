@@ -32,7 +32,7 @@
     "propietario": {
       "type": "belongsTo",
       "model": "Usuario",
-      "foreignKey": ""
+      "foreignKey": "owner"
     }
   },
   "acls": [],
