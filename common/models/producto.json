@@ -12,11 +12,17 @@
     },
     "comprar": {
       "type": "boolean",
-      "required": true
+      "required": false
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "lista": {
+      "type": "belongsTo",
+      "model": "ListaFamiliar",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
