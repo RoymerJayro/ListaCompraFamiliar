@@ -36,5 +36,34 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "prototype.solicitar": {
+      "accepts": [
+        {
+          "arg": "context",
+          "type": "object",
+          "required": true,
+          "description": "Contiene el context",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "solicitud",
+          "type": "object",
+          "root": true,
+          "description": "s"
+        }
+      ],
+      "description": "Solicitaremos la entrada a una lista de compras",
+      "http": [
+        {
+          "path": "/solicitar",
+          "verb": "post"
+        }
+      ]
+    }
+  }
 }
