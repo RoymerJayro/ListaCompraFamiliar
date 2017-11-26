@@ -45,7 +45,43 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "create"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "AceptarSolicitud"
     }
   ],
-  "methods": {}
+  "methods": {
+    "prototype.AceptarSolicitud": {
+      "accepts": [
+        {
+          "arg": "context",
+          "type": "object",
+          "required": true,
+          "description": "Contiene el usuario logueado",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "aceptaSolicitud",
+          "type": "array",
+          "root": true,
+          "description": "Devolvemos los usuarios aceptados"
+        }
+      ],
+      "description": "Aceptamos las solicitudes segun la id",
+      "http": [
+        {
+          "path": "/aceptarSolicitudes",
+          "verb": "put"
+        }
+      ]
+    }
+  }
 }

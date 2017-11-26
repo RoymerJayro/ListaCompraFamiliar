@@ -44,8 +44,9 @@ ListaFamiliar.prototype.solicitar = function(context, callback) {
                 listafamiliarId:listafamiliar.id,
                 usuarioId:userId
             }
+            callback(null, solicitud);
    });
-  callback(null, solicitud);
+  
 };
 
 
