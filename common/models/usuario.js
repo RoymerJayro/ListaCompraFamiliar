@@ -25,13 +25,13 @@ module.exports = function(Usuario) {
                  //Una vez encontrado su listaIDFamiliar
              }, function(err,UsuariosdelaLista){
                  if(err) callback(err);
-                 usuarioSolicitante.solicitudes.findById(usuarioAceptador.listaFamiliarId, function(err, listaFamiliarSolicitante) {
-                    if(err)callback(err);
-                        usuarioSolicitante.listaFamiliarId=listaFamiliarSolicitante.Id;
+                 usuarioSolicitante.solicitud.findById(usuarioAceptador.listaFamiliarId, function(err, listaFamiliarSolicitante) {
+                    if(err)callback(err); console.log(listaFamiliarSolicitante);
+                        usuarioSolicitante.listaFamiliarId=listaFamiliarSolicitante.id;
                         usuarioSolicitante.save(function(err, usuarioSolicitante){
                             UsuariosdelaLista.push(usuarioSolicitante);
                             if(err)callback(err);
-                            usuarioSolicitante.solicitudes.remove(listaFamiliar,function(err){
+                            usuarioSolicitante.solicitud.remove(listaFamiliarSolicitante.id,function(err){
                                 if(err)callback(err);
                                 callback(null,UsuariosdelaLista)
                             });
