@@ -42,5 +42,36 @@ module.exports = function(Usuario) {
         });
     };
 
+/**
+ * Rechazaremos las solicitudes 
+ * @param {object} context recibimos la solicitud
+ * @param {Function(Error, array)} callback
+ */
+
+Usuario.prototype.rechazarSolicitudes = function(context, callback) {
+
+    var usuarioAutentificado=context.req.accessToken.userId;
+    var usuarioSolicitante=this;
+    //console.log(usuarioSolicitante);
+    Usuario.findById(usuarioAutentificado,function(err, objUsuarioAceptador){
+         if(err)callback(err);
+         console.log(usuarioSolicitante);
+         Usuario.find({
+             where:{listaFamiliarId:objUsuarioAceptador.listaFamiliarId}
+         },function(err, UsuarioEnLaLista){
+             if(err)callback(err);
+             usuarioSolicitante.solicitud.findById(objUsuarioAceptador.listaFamiliarId,function(err,listaFamiliarSolicitante){
+                 if(err)callback(err);
+                 console.log(listaFamiliarSolicitante);
+                 usuarioSolicitante.solicitud.remove(listaFamiliarSolicitante.id,function(err){
+                     if(err)callback(err);
+                     
+                     callback(null,UsuarioEnLaLista);
+                 });
+             });
+         });
+     });
+
+};
 
 };
