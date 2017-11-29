@@ -20,9 +20,38 @@
     "lista": {
       "type": "belongsTo",
       "model": "ListaFamiliar",
-      "foreignKey": ""
+      "foreignKey": "listaFamiliarId"
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "limpiarLista": {
+      "accepts": [
+        {
+          "arg": "context",
+          "type": "object",
+          "required": true,
+          "description": "Objeto de la solicitud",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "listaProductos",
+          "type": "array",
+          "root": true,
+          "description": "Productos del usuario autentificado en false"
+        }
+      ],
+      "description": "Ponder a falso todos los productos del usuario autentificado",
+      "http": [
+        {
+          "path": "/limpiarLista",
+          "verb": "put"
+        }
+      ]
+    }
+  }
 }
