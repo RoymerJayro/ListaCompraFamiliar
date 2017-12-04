@@ -46,10 +46,22 @@ ListaFamiliar.prototype.solicitar = function(context, callback) {
             }
             callback(null, solicitud);
    });
-  
 };
-
-
+/*prototype.solicitar*/
+ListaFamiliar.afterRemote('prototype.solicitar', function( context, listafamiliar, next) {
+    var userId=context.req.accessToken.userId;
+    var Usuario=ListaFamiliar.app.models.Usuario;
+    console.log(listafamiliar);
+    Usuario.findById(userId, function(err, ObjUsuarioAutentificado){
+        if(err)console.log(err);
+        console.log(ObjUsuarioAutentificado);
+        //vamos a interactuar directamente asincronamente con la relación entre usuarioy listas familiares
+        ListaFamiliar.solicitudes({where:{listaFamiliar:ObjUsuarioAutentificado.listaFamiliarId}},function(err, objUsAuSolicitud){
+            if(err)console.log(err);
+            console.log(objUsAuSolicitud);
+        });
+    });
+});
 
 
 };
