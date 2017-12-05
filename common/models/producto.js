@@ -25,4 +25,27 @@ module.exports = function(Producto) {
      });
      
    };
+   
+   /**
+ * Vamos a cambiar el estado de un producto
+ * @param {object} context Datos del usuario autentifiacdo
+ * @param {Function(Error, array)} callback
+ */
+
+    Producto.prototype.productoComprado = function(context, callback) {
+      var ProductoCambiar=this;
+      if(ProductoCambiar.comprar==true){
+              ProductoCambiar.comprar=false;
+      }else{
+          ProductoCambiar.comprar=true;
+      }
+      ProductoCambiar.save(function(err){
+          if(err)callback(err);
+          Producto.find({where:{listaFamiliarId:ProductoCambiar.listaFamiliarId}}, function(err, listaCompras){
+              if(err) callback(err);
+              callback(null, listaCompras);
+          });
+      });
+    };
+
 };

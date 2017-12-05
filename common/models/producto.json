@@ -23,7 +23,15 @@
       "foreignKey": "listaFamiliarId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "MiembroLista",
+      "permission": "ALLOW",
+      "property": "productoComprado"
+    }
+  ],
   "methods": {
     "limpiarLista": {
       "accepts": [
@@ -49,6 +57,34 @@
       "http": [
         {
           "path": "/limpiarLista",
+          "verb": "put"
+        }
+      ]
+    },
+    "prototype.productoComprado": {
+      "accepts": [
+        {
+          "arg": "context",
+          "type": "object",
+          "required": true,
+          "description": "Datos del usuario autentifiacdo",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "resultado",
+          "type": "array",
+          "root": true,
+          "description": "ProductosCambiados"
+        }
+      ],
+      "description": "Vamos a cambiar el estado de un producto",
+      "http": [
+        {
+          "path": "/comprado",
           "verb": "put"
         }
       ]
