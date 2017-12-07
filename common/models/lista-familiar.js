@@ -46,10 +46,36 @@ ListaFamiliar.prototype.solicitar = function(context, callback) {
             }
             callback(null, solicitud);
    });
-  
 };
-
-
+/*prototype.solicitar*/
+ListaFamiliar.afterRemote('prototype.solicitar', function( context, listafamiliar, next) {
+    var userId=context.req.accessToken.userId;
+    var Usuario=ListaFamiliar.app.models.Usuario;
+    //console.log(listafamiliar);
+    var forEach = require('async-foreach').forEach;
+    Usuario.findById(userId, function(err, UsuarioAutentificadoSolicitante){
+        if(err)console.log(err);
+        //console.log(UsuarioAutentificadoSolicitante);
+        UsuarioAutentificadoSolicitante.solicitud(function(err, objUsAuSolicitud){
+            if(err)console.log(err);
+            //console.log(objUsAuSolicitud);
+            forEach(objUsAuSolicitud,function(elemento,index){
+                console.log("each",elemento,index);
+                if(index<objUsAuSolicitud.length-1){
+                    UsuarioAutentificadoSolicitante.solicitud.remove(elemento, function(err){
+                        if(err)console.log(err);
+                    });
+                }else{
+                    console.log("esta es ultima y no se borra");
+                };
+            }, function(err){
+                if(err)console.log(err);
+                next();
+            });
+            
+        });
+    });
+});
 
 
 };
